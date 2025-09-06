@@ -1,13 +1,16 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "nodejs"
+    }
+
     stages {
         stage('Checkout') {
-             steps {
-                 git branch: 'main', url: 'https://github.com/mitali246/react-ci-demo.git'
-             }
+            steps {
+                git url: 'https://github.com/mitali246/react-ci-demo.git', branch: 'main'
+            }
         }
-
 
         stage('Install Dependencies') {
             steps {
@@ -23,8 +26,8 @@ pipeline {
 
         stage('Start React App') {
             steps {
-                sh 'nohup npm start -- --port=3001 &'
-                sh 'sleep 10' // wait for server to start
+                sh 'nohup npm start &'
+                sleep 15
             }
         }
 
@@ -38,7 +41,7 @@ pipeline {
     post {
         always {
             sh "pkill -f 'react-scripts start' || true"
-            echo "Pipeline completed, React app stopped."
+            echo 'Pipeline completed, React app stopped.'
         }
     }
 }
