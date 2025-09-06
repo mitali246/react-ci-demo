@@ -3,10 +3,11 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/react-ci-demo.git'
-            }
+             steps {
+                 git branch: 'main', url: 'https://github.com/mitali246/react-ci-demo.git'
+             }
         }
+
 
         stage('Install Dependencies') {
             steps {
